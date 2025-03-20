@@ -1,0 +1,43 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.fromNestedFilter = void 0;
+var _filters = require("../filters");
+var _utils = require("../utils");
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the Elastic License
+ * 2.0 and the Server Side Public License, v 1; you may not use this file except
+ * in compliance with, at your election, the Elastic License 2.0 or the Server
+ * Side Public License, v 1.
+ */
+
+/** @internal */
+const fromNestedFilter = (filter, indexPattern, config = {}) => {
+  if (!indexPattern) return filter;
+  const fieldName = (0, _filters.getFilterField)(filter);
+  if (!fieldName) {
+    return filter;
+  }
+  const field = indexPattern.fields.find(indexPatternField => indexPatternField.name === fieldName);
+  const subTypeNested = field && (0, _utils.getDataViewFieldSubtypeNested)(field);
+  if (!subTypeNested) {
+    return filter;
+  }
+  const query = (0, _filters.cleanFilter)(filter);
+  return {
+    meta: filter.meta,
+    query: {
+      nested: {
+        path: subTypeNested.nested.path,
+        query: query.query || query,
+        ...(typeof config.nestedIgnoreUnmapped === 'boolean' && {
+          ignore_unmapped: config.nestedIgnoreUnmapped
+        })
+      }
+    }
+  };
+};
+exports.fromNestedFilter = fromNestedFilter;

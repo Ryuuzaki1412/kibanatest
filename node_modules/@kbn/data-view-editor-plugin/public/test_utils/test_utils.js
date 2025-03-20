@@ -1,0 +1,18 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "getRandomString", {
+  enumerable: true,
+  get: function () {
+    return _testJestHelpers.getRandomString;
+  }
+});
+Object.defineProperty(exports, "registerTestBed", {
+  enumerable: true,
+  get: function () {
+    return _testJestHelpers.registerTestBed;
+  }
+});
+var _testJestHelpers = require("@kbn/test-jest-helpers");

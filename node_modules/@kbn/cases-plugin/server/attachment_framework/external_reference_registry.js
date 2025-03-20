@@ -1,0 +1,20 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ExternalReferenceAttachmentTypeRegistry = void 0;
+var _registry = require("../../common/registry");
+/*
+ * Copyright Elasticsearch B.V. and/or licensed to Elasticsearch B.V. under one
+ * or more contributor license agreements. Licensed under the Elastic License
+ * 2.0; you may not use this file except in compliance with the Elastic License
+ * 2.0.
+ */
+
+class ExternalReferenceAttachmentTypeRegistry extends _registry.AttachmentTypeRegistry {
+  constructor() {
+    super('ExternalReferenceAttachmentTypeRegistry');
+  }
+}
+exports.ExternalReferenceAttachmentTypeRegistry = ExternalReferenceAttachmentTypeRegistry;
